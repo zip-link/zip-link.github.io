@@ -4,6 +4,334 @@
   
     
     <entry>
+      <title>MQTT——快速搭建客户端和服务器</title>
+      <link href="2021/01/31/embedded/IOT/MQTT%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+      <url>2021/01/31/embedded/IOT/MQTT%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+      
+        <content type="html"><![CDATA[<p>MQTT是物联网中应用及其广泛的应用协议，mqtt由于其带宽低和基于发布订阅的模式的优点，被各物联网平台推广使用。MQTT首先有三个角色：订阅者、发布者、中间代理。订阅者通过订阅指定消息类型可收到发布者发布的制定类型消息。服务器作为代理做消息的转发。这种基于发布订阅的模式与物联网中边缘终端1对N的特征完全匹配。不得不说MQTT协议天生为物联网而生。</p><a id="more"></a><p><img src="https://zip-link.github.io/Image/MQTT_headimg.png" class="lazyload" data-srcset="https://zip-link.github.io/Image/MQTT_headimg.png" srcset="data:image/png;base64,666"><br>本文将分两部分总结下搭建基于MQTT协议的服务端和客户端。</p><h2 id="一、server"><a href="#一、server" class="headerlink" title="一、server"></a>一、server</h2><p>MQTT作为一种协议被各厂家实现了各种版本，mqtt的官网<a href="https://mqtt.org/">https://mqtt.org</a> 也提供了各个源码的链接。<br>这里使用emqx作为服务器，emqx为用户提供了后台管理界面，程序运行后可直接通过web查看或更改服务。emqx官网有介绍各种平台的不同安装方式，这里建议使用官网提供的一键安装脚本</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://repos.emqx.io/install_emqx.sh | bash</span><br></pre></td></tr></table></figure><p>安装完成后可直接通过emqx start运行服务，服务打开后可通过web访问后台的方式查看各种信息。默认端口是18083。如果是云服务器记得开放该端口访问权限。<br><img src="https://zip-link.github.io/Image/MQTT1_dashboard.png" class="lazyload" data-srcset="https://zip-link.github.io/Image/MQTT1_dashboard.png" srcset="data:image/png;base64,666"></p><p>默认是英文显示，可以自行在设置中更改语言和显示主题。同时由于emqx还提供websocket方式订阅发布消息。后台Dashboard也提供了通过websocket方式建立连接、发布、订阅的功能，方便用户可以直接测试功能效果。</p><h2 id="二、client"><a href="#二、client" class="headerlink" title="二、client"></a>二、client</h2><p>参考mqtt官网提供的几个版本的客户端源码，最终使用了libemqtt版本。直接从github下载代码之后make即可生成发布和订阅两个demo，这里以订阅为例运行sub后，demo死循环打印接收到的订阅的消息<br><img src="https://zip-link.github.io/Image/MQTT1_client1.png" class="lazyload" data-srcset="https://zip-link.github.io/Image/MQTT1_client1.png" srcset="data:image/png;base64,666"><br>通过web发送客户端订阅的主题消息，消息内容为hello, World。这里需要理解下，虽然是通过服务端的后台发送的消息，但web通过websocket建立连接后,此时的web也是客户端之一。<br><img src="https://zip-link.github.io/Image/MQTT1_websendmq.png" class="lazyload" data-srcset="https://zip-link.github.io/Image/MQTT1_websendmq.png" srcset="data:image/png;base64,666"><br>客户端接收到消息，并打印出来<br><img src="https://zip-link.github.io/Image/MQTT1_client2.png" class="lazyload" data-srcset="https://zip-link.github.io/Image/MQTT1_client2.png" srcset="data:image/png;base64,666"><br>libemqtt的demo中只是用到了基本的功能，源码并不是很多，但是库中的多个接口还需要日后有时间慢慢研究下</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+          <category> IOT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 物联网 </tag>
+            
+            <tag> MQTT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>浅谈内存函数栈中的栈帧(arm)</title>
+      <link href="2021/01/31/linux/%E5%86%85%E5%AD%98/%E6%B5%85%E8%B0%88%E5%86%85%E5%AD%98%E5%87%BD%E6%95%B0%E6%A0%88%E4%B8%AD%E7%9A%84%E6%A0%88%E5%B8%A7(ARM)/"/>
+      <url>2021/01/31/linux/%E5%86%85%E5%AD%98/%E6%B5%85%E8%B0%88%E5%86%85%E5%AD%98%E5%87%BD%E6%95%B0%E6%A0%88%E4%B8%AD%E7%9A%84%E6%A0%88%E5%B8%A7(ARM)/</url>
+      
+        <content type="html"><![CDATA[<p>栈是函数调用的实现基础，而栈帧就是函数调用栈中的一个基础知识点。对栈帧理解后能更好的理解函数运行过程。<br>简单来理解，程序运行过程中，PC指针每遇到一个函数，栈都会新增一个栈帧。栈帧记录着函数的<strong>参数</strong>，<strong>返回地址</strong>，父函数的<strong>栈底指针</strong>和自身相关的<strong>局部变量</strong>等。理解栈帧前先明确以下几个寄存器概念：</p><a id="more"></a><ul><li>esp,栈顶指针</li><li>ebp,栈底指针</li><li>pc,指向程序运行的下一行程序地址</li></ul><p><strong>注意</strong>：ebp指向当前位于系统栈最上边一个栈帧的底部，而不是系统栈的底部。严格说来，“栈帧底部”和“栈底”是不同的概念;esp所指的栈帧顶部和系统栈的顶部是同一个位置。</p><p>下面以一个简单的函数调用，对应函数的运行状态总结下栈帧的生命周期。程序的执行顺序如代码注释</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> c = <span class="number">4</span>;<span class="comment">//4</span></span><br><span class="line"><span class="keyword">return</span> c;<span class="comment">//5</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span><span class="comment">//1</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;<span class="comment">//2</span></span><br><span class="line">fun(a, b);<span class="comment">//3</span></span><br><span class="line"><span class="built_in">printf</span>（<span class="string">&quot;hello world\n&quot;</span>）;<span class="comment">//6</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>首先main函数也是被运行库调用的所以，栈会有一个初始状态。<br><img src="https://zip-link.github.io/Image/%E6%A0%88%E5%88%86%E6%9E%90%E6%A0%88%E5%B8%A71.png" class="lazyload" data-srcset="https://zip-link.github.io/Image/%E6%A0%88%E5%88%86%E6%9E%90%E6%A0%88%E5%B8%A71.png" srcset="data:image/png;base64,666"><br>两个关键点<br>1、函数调用，参数由右到左依次拷贝压栈，跟新PC指针到fun函数起始地址，更新栈底指针ebp为当前栈顶也就是ebp = esp<br>2、函数返回，更新PC指针为返回地址，更新ebp栈底指针为old esp（上一级的栈底）。跟新esp为栈ebp,销毁函数栈帧。更新sp之后，sp是指向的位置是上图中的程序6地址，此时被调用函数的工作已经全部完成。但是栈没有并没有恢复到与调用函数之前一样，要向恢复占空间还需两步骤。1）调用函数调整PC指针指向返回值地址（也就是程序6的地址），并出栈返回值地址 2）依据调用惯例规定，返回值参数的栈，需要调用者恢复</p><p>疑：学习栈帧之前一直有个疑问，栈都是先进后出的，那比如我定义了a和b个局部变量，现在想用a的值，岂不是要先把b出栈？？？实在不然，栈的先进后出只是对于新增删除而言，一个栈内的变量都是可以通过ebp-x(x带边变量在栈帧中的偏移)来访问的。<br>总结栈帧的组成:参、返、B、局</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> 内存 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 内存 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2020不讲武德，2021能否改变</title>
+      <link href="2021/01/01/2020%E4%B8%8D%E8%AE%B2%E6%AD%A6%E5%BE%B7%EF%BC%8C2021%E8%83%BD%E5%90%A6%E6%94%B9%E5%8F%98/"/>
+      <url>2021/01/01/2020%E4%B8%8D%E8%AE%B2%E6%AD%A6%E5%BE%B7%EF%BC%8C2021%E8%83%BD%E5%90%A6%E6%94%B9%E5%8F%98/</url>
+      
+        <content type="html"><![CDATA[<p>2020过的真快，可能是因为疫情原因，一年到头没怎么出门，现在回想这一年基本一直在工作。没有什么时间和朋友出去转转的机会。当然离家太远也没什么交心的朋友，也可能是工作之后每年都是这样吧。</p><a id="more"></a><p>罗列下2020对于我比较重要的事情，和女友分手，企图跳槽失败以告终。这两件事感觉说明了这一年对我确实悲哀之年。<br>分手确实是感觉两个人在一起不合适，无论是家庭，地域，学历，性格等等感觉都不很合适，也没什么多说的。与其浪费她的时间，不如痛快的早点结束。<br>准备跳槽也是2020年初就在躁动的一件事，原因有很多。一是感觉现在的工作环境不适合我，整天都在改bug和移植代码，没有留给自己时间去学习新的知识。二是年初也没有涨薪，不是我小肚鸡肠，主要是这种环境下（感觉干的不开心的情况下），如果在不谈点钱，干活都没劲。当然对我而言（一个双非本科毕业的普通人）来说，毕业能来海康这样的大平台确实还实属幸运，不过心里总归感觉不属于这。先后在各种平台投了小米和字节等我心仪的公司，当然简历可能都没过。最后面试了涂鸦，感觉面试下来感觉体验还不错，最后也发了offer。10月份那个月真实我最纠结的时候，纠结了好久，最终还是和我师父和组长提出了要走的想法，HR和组长先后找我谈话，最终把我心里那团火扑灭了，安心干活吧，拿了年终奖再说。<br>所以，今年没跳槽成功。不过这个跳槽的新路历程也带给了我不少成长。这段坎坷的经历，也给我租房带来入了窘境，今年先后住过四个小区。开始是萧山的龙湖天玺，房子到期后和同事合租到了滨江边的祥云雅苑，后来又被自如解约。解约时，正好在考虑跳槽，考虑到可能换工作不住在这里了，又自己短租了一个月的蛋壳。<br>说来也巧，刚住进半个月蛋壳就报雷了，总共租一个月，停网半个月，押金到现在还没退（虽然只有600），最后也就是现在住的新洲花苑，算是离公司最近的小区了，感觉还不错，如果明年不换工作的话应该会一直住在这里。<br>好的一方面，因为住的离公司近了，养成了早上8.30去公司领体面钱的习惯，还能吃个早饭。吃完早饭8.50左右，然后回工位可以看会书。这个习惯感觉不错，能保证每天都有自己的学习时间，以后也要一直保持下去，还是早睡早起好。<br>展望下2021，先说工作的事情，如果还是这样的工作内容，或者有薪资方面的不符合预期，还是打算跳槽走人，长期目标是回庄里发展。所以既然学不到东西和赚不到钱肯定是会走的。然后是学习目标，还是保证每天读书的习惯。当然，也要丰富自己的其他方面的阅历，所以2021的flag也要定一下<br>总结下2020：</p><ol><li>1.分手</li><li>2.跳槽失败<br>2021 flag：</li><li>1.跳槽（如果有机会尽量能回家）</li><li>2.读5本书（必读：程序员的修炼之道，代码大全）</li><li>3.爬两座山</li><li>4.去一次海，见一条河</li><li>5.学习一门乐器（目前是尤克里里）</li><li>6.博客网站上半年全部工作完成，成立自己的项目</li></ol>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>物联网利器——ESP8266（入门及环境搭建）</title>
+      <link href="2020/12/27/embedded/IOT/esp8266_1/"/>
+      <url>2020/12/27/embedded/IOT/esp8266_1/</url>
+      
+        <content type="html"><![CDATA[<p>早就听说过，8266这款MCU，B站上也看多过好多人用这个板子DIY自己的作品，所以前段时间从某宝购入了一款全引脚引出的8266开发板，核心板本身就集成WIFI和Flash，整个板子除了核心板和串口转USB芯片，没别的东西，看起来比较小巧，当然还有比这更小的只有核心板的芯片，不过那种没有几个IO口可用，某宝也是有卖的。</p><a id="more"></a><p><img src="https://img-blog.csdnimg.cn/20200704154211511.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200704154211511.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,666"></p><h3 id="1-开发环境搭建"><a href="#1-开发环境搭建" class="headerlink" title="1.开发环境搭建"></a>1.开发环境搭建</h3><p>买板子送的官方资料，指定的编译IDE是好像是Eclipse,烧录还要使用另一个软件。环境搭建比较繁琐。<br>看到过B站上有人使用arduino的IDE开发，编译和烧录可以都在这个环境完成。所以我也是用来arduinoIDE。环境搭建也比较简单。</p><ol><li>下载IDE：直接去官网下载对应系统版本压缩包<br><a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a><br>下载的是个压缩包，解压后直接运行目录下的exe文件就行，无需安装</li><li>环境配置<br>运行软件 </li></ol><p><strong>文件-&gt;首选性-&gt;附加开发板管理地址</strong> 修改为<a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a><br>之后保存。<br><img src="https://img-blog.csdnimg.cn/20200704154315144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200704154315144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"><br><strong>工具-&gt;开发板-&gt;开发板管理器</strong><br>开发板管理器配置页最下面会多出8266的相关选项，选择最新版本后点击安装相关的库文件。<br>（下载可能会很慢，链接的是github，所以可能巨慢，下图是已经下载完成之后）<br><img src="https://img-blog.csdnimg.cn/20200704154509656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200704154509656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"><br>下载完成之后工具-&gt;开发板 下面就会多了8266板子的信息，选择对应的板子型号就可以（我的是ESP8266 Module，下载程序还会对Flash大小进行设置，比如我的板子是32Mb对应的应该选择4MB）<br><img src="https://img-blog.csdnimg.cn/20200704154750366.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200704154750366.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"><br>3.程序编译和烧录<br>使用官方的示例程序，烧录到板子<br><strong>文件-&gt;示例-&gt;ESP8266-&gt;Blink</strong><br>该程序是官方LED闪烁例程，在点击-&gt;符号开始编译并烧录，过程可能大概不到10秒中之后，程序烧录进板子，核心板的等间隔闪烁，说明程序烧录成功。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+          <category> IOT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 单片机 </tag>
+            
+            <tag> 物联网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>8266驱动spi屏ST7735小结</title>
+      <link href="2020/12/27/embedded/IOT/esp8266_2/"/>
+      <url>2020/12/27/embedded/IOT/esp8266_2/</url>
+      
+        <content type="html"><![CDATA[<p>ESP8266+arduino确实是一个神奇的组合，很适合新人入手，不过对于从51或者32转型的过来人，使用起来颇有些崴脚。首先是开源库的存在，依托arduino的开源，在IDE或者github有很多的开源库使用，我猜测现有的一些驱动，估计都能找到驱动库，具体怎么找可能就要自己花费些时间了。</p><a id="more"></a><h3 id="前情提要："><a href="#前情提要：" class="headerlink" title="前情提要："></a>前情提要：</h3><ul><li>导线连接：<br>     ESP8266——————–TFT<br>GPIO4——————–RST<br>GPIO5——————–D/C<br>GPIO13(MOSI)———–DIN(SDI,MOSI)<br>GPIO14(SCK)————-CLK(SCK)<br>GPIO15(SS,CS)———–CS(SS)</li></ul><p>3.3V———————-3.3V,LED+100R电阻<br>GND———————GND<br>（括号里的为同一个io不同称呼）<br>ESP8266引脚名称对应关系参考下图<br><img src="https://img-blog.csdnimg.cn/20200705124330541.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200705124330541.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"></p><h3 id="接入ST7735"><a href="#接入ST7735" class="headerlink" title="接入ST7735"></a>接入ST7735</h3><p>将下面两个库放到自己环境的对应目录下<br><img src="https://img-blog.csdnimg.cn/20200705122607634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200705122607634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"><br>两个库的源码和我的APP代码压缩包已经上传到我的github</p><p><a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>:zip-link/8266_ST7735tft.git</p><p>可以直接参考我的APP（我的也是抄的别人的），APP实现的功能是webserver+1.8寸tft显示图片。tft屏幕的图片可以在web重新上传，当然上传的图片格式也是有要求的，只是实现的bmp格式，而且像素大小必须和屏幕保持一致。比如我的屏幕是128<em>160的，所以上传的图片必须是128</em>160像素的。</p><p>完全编译APP的代码是1.8寸tft, 如果你的屏幕是1.4的可以在APP代码中改动<br><img src="https://img-blog.csdnimg.cn/2020070512370226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/2020070512370226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"><br>参考7533库的对应的你的屏幕尺寸的宏就可以</p><p>APP实现的整个工作流程：<br>8266连接路由器–&gt;8266建立web服务器–&gt;电脑访问web页面–&gt;上传图片–&gt;保存图片到flash–&gt;读取图片数据–&gt;发送个给tft显示</p><p>贴下最终的实现效果<br><img src="https://img-blog.csdnimg.cn/20200705124004832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200705124004832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"><br><img src="https://img-blog.csdnimg.cn/20200705124726770.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200705124726770.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666"></p><h3 id="开源库的使用"><a href="#开源库的使用" class="headerlink" title="开源库的使用"></a>开源库的使用</h3><p>为了使用8266快速接入某个模块，首先可以找到对应的驱动库，可能比较耗费时间，github和百度。比如我这次接入的ST7735百度了很长时间，尝试了多次，才找到合适的。正常的库文件一般都是自带例程的。需要将库解压到libraries下，之后就可以在，IDE中找到了。例程中一般是基础功能的展示，依次烧录下可以更加熟悉下整个模块的功能。</p><p>在.h参考模块对外API，自己的代码中引用对应的.即可使用相关接口。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+          <category> IOT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 单片机 </tag>
+            
+            <tag> 物联网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>基础学习总结——线程池</title>
+      <link href="2020/12/27/coding/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <url>2020/12/27/coding/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+      
+        <content type="html"><![CDATA[<p>经常听到线程池的概念，不过在实际工作和项目里没有应用过线程池。线程池可能是作为服务端的开发经常用到的技术架构，所以最近我也通过网络简单的学习了下线程池的概念，稍微理解了线程池的应用场景。</p><p>在高并发的服务环境下，存在多个客户端访问服务端相同服务的场景，而传统方式，是为多客户端创建一一对应的处理线程，这在高并发场景下极大的耗费服务端的资源。为了解决这类问题，服务端可使用线程池，为同一服务创建相同的<strong>线程队列</strong>，这些线程循环处理工作队列中的任务，当有客户端需要这种服务时将增加任务到<strong>工作队列</strong>中。</p><a id="more"></a><p><img src="https://img-blog.csdnimg.cn/20200830154514733.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200830154514733.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,666" alt="在这里插入图片描述"></p><p>在实际使用上，可能大家只需要知道如何向工作队列中添加任务即可，不过理解线程池其中的处理流程，可以在遇到问题时更快的理解和定位问题所在，下面通过自己写的一个S端的线程池创建的demo，详细介绍下S端的线程池框架。</p><p>首先，前面提到过的，使用线程池需要:线程队列，工作队列，线程池节点。下面是三个对应的结构体</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//工作队列节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">JOB</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">void</span> (*job_func)(<span class="keyword">void</span> * args);</span><br><span class="line">    <span class="keyword">int</span> date;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">JOB</span>* <span class="title">pNext</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">JOB</span>* <span class="title">pPrev</span>;</span>        </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//线程队列节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">WORKER</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">pthread_t</span> tid;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">WORKER</span>* <span class="title">pNext</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">WORKER</span>* <span class="title">pPrev</span>;</span>    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//线程池节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Manager</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">WORKER</span>* <span class="title">pWorkers</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">JOB</span>* <span class="title">pJobs</span>;</span></span><br><span class="line">    <span class="keyword">pthread_mutex_t</span> mtx;</span><br><span class="line">    <span class="keyword">pthred_cond_t</span> cond;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*使用宏定义，实现链表的增加删除节点*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL_ADD(item, list) \</span></span><br><span class="line">&#123;</span><br><span class="line">    item-&gt;pNext = <span class="built_in">list</span>; </span><br><span class="line">    <span class="built_in">list</span>-&gt;pPrev = item;</span><br><span class="line">    <span class="built_in">list</span> = item;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL_DEL(item, list) \</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(item == <span class="built_in">list</span>)</span><br><span class="line">        item-&gt;pNext = item-&gt;pPrev = <span class="literal">NULL</span>;</span><br><span class="line">    item-&gt;pPrev-&gt;pNext = item-&gt;pNext;</span><br><span class="line">    item-&gt;pNext-&gt;pPrev = item-&gt;pPrev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>初始线程池，包括线程池参数和化线程队列</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程池初始化</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CreatNthreads</span><span class="params">(Manager* pMgPool, <span class="keyword">int</span> workerNum)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == pMgPool)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    pMgPool-&gt;mtx = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line">    pMgPool-&gt;cond = PTHREAD_COND_INITIALIZER;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; workerNum; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        WORKER* pWorker = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">malloc</span>(pWorker,<span class="keyword">sizeof</span>(WORKER));</span><br><span class="line">        pthread_creat(&amp;pWorker-&gt;tid, <span class="literal">NULL</span>, TaskWorkerCallback, pMgPool);</span><br><span class="line">        LL_ADD(pWorker, pMgPool-&gt;pWorkers);</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>实现线程池内部线程接口的逻辑</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程处理回调</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">TaskWorkerCallback</span><span class="params">(Manager* pMgPool)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    JOB* pJob = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == pMgPool)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(pJob, <span class="number">0</span>, <span class="keyword">sizeof</span>(Job));</span><br><span class="line">        pthread_mutex_lock(&amp;pMgPool-&gt;mtx);</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">NULL</span> == pMgPool-&gt;pJobs)</span><br><span class="line">            pthread_cond_wait(&amp;pMgPool-&gt;cond ,&amp;pMgPool-&gt;mtx);</span><br><span class="line">        pJob = pMgPool-&gt;pJobs;</span><br><span class="line">        <span class="keyword">if</span>(pJob)</span><br><span class="line">            LL_DEL(pJob,pMgPool-&gt;pJobs);</span><br><span class="line">        pthread_mutex_unlock(&amp;pMgPool-&gt;mtx);</span><br><span class="line">        pJob-&gt;job_func(pJob-&gt;date);</span><br><span class="line">        pJob = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">free</span>(pJob);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>前端需要调用postJob（）接口向后端工作队列添加节点</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//工作真正的处理接口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">//向工作队列添加节点</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postJob</span><span class="params">(Manager* pMgPool,<span class="keyword">int</span> date)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    JOB* pJob = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">malloc</span>(pJob,<span class="keyword">sizeof</span>(JOB));</span><br><span class="line"></span><br><span class="line">    pthread_mutex_lock(&amp;pMgPool-&gt;mtx);</span><br><span class="line">    pJob-&gt;job_func = func;</span><br><span class="line">    pJob-&gt;date = date;</span><br><span class="line">    LL_ADD(pJob,pMgPool-&gt;pJobs);</span><br><span class="line">    pthread_mutex_unlock(&amp;pMgPool-&gt;mtx);</span><br><span class="line">    pthread_cond_signal(&amp;pMgPool-&gt;cond);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>以上方式实现的工作队列链表是“类栈链表”，及后来的节点，却优先处理。和栈的出栈入栈方式类似，我这里先叫“类栈链表”吧，到这里基本上实现了线程栈的创建和使用流程，具体在根据应用场景，实现func即可；</p><p>缺点：如果是需要响应C端的服务，使用线程池可能会影响响应速度。（不需要响应的，比如客户端发起的会导致写硬盘的操作）</p><p>优点：高并发场景下，极大降低了S端的性能需求</p><blockquote><p>（以上，均为作者个人理解，如有错误支持，欢迎评论指导）</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> 线程池 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 线程池 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>应用开发中常用的进程线程通信</title>
+      <link href="2020/08/23/linux/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
+      <url>2020/08/23/linux/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/</url>
+      
+        <content type="html"><![CDATA[<p>进程通信是学习应用编程的基础，尤其是对于大型嵌入式项目而言，熟悉常用的通信方式是能写好代码和能看懂代码的前提。其实在大学刚接触linux就学习过进程间的几种通信方式，不过由于当时接触的项目都比较简单，导致没能对这几种通信有比较好的理解和应用。工作之后有了大量的代码阅读量，感觉对几种通信的应用有了新的认识，所以坐下简单的总结。</p><ol><li>共享内存</li><li>信号量</li><li>消息队列</li><li>管道<a id="more"></a><h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2>共享内存是几种通信方式中常用的程序间通信方式容易理解的。（如果不理解共享内存这个名词，你可直接把他想象成常用标志位，不过这个标志位可能会是个很大的结构体或数组）这里对共享内存的介绍分为进程间和线程间两部分总结。</li><li>线程间<br>线程间的共享内存是最简单的，因为相同进程共享全局和静态变量，所以只要定义全集变量，即可实现多个线程共享内存实现数据通信了。</li><li>进程间<br>由于各个进程的内存空间是独立的，所以全局变量那一套是走不通的。这时需要使用共享存储，共享存储允许多个进程共享一个特定的内存缓冲区。常用的接口如下：<br>shmget()获取共享内存标识符<br>shmat()虚拟地址转换</li></ol><blockquote><p>（接口只做了简单的总结，具体的函数原型，可以借助工具书和百度）</p></blockquote><p><img src="https://img-blog.csdnimg.cn/20200823211936447.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200823211936447.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,666" alt="在这里插入图片描述"></p><p>以常用的客户进程与服务进程为例：<br>C进程，S进程<br>C调用S对外接口get_shm_addr(),S的get_shm_addr()需要实现内存的申请，获取共享内存标识符，虚拟地址转换，最后把转换后的地址返回给C，C和S就可以通过共享存储的方式通信了。</p><p>注意：不管是线程还是进程间的通信，都需要C-S两端控制缓冲区的互斥使用，C去写数据时，S也去写数据如何处理？这里就需要不同的应用场景不同的控制了。一般通过信号量或自行定义读写指针辅佐控制。</p><h2 id="posix信号量"><a href="#posix信号量" class="headerlink" title="posix信号量"></a>posix信号量</h2><p>posix信号量与之对应的是XSI信号量，课本上讲的就是XSI信号量。不过posix信号量作为后来者，无论在性能和使用规范上都明显优于后者。所以这里也是简单介绍下posix的信号量。<br>（信号量通俗理解，简单的可以真的可以理解成一个可以在进程间共享的标志位，不过这个标志位是需要使用系统接口才能对标志位进行加减）<br>常用到的接口包括<br>创建信号量，sem_open()<br>关闭信号量，关闭信号量对应的fd ，sem_close()<br>删除信号量，sem_unlink()<br>发送信号量，对信号量进行+1操作sem_post()<br>接受信号量，对信号量进行-1操作sem_wait()</p><blockquote><p>（接口只做了简单的总结，具体的函数原型，可以借助工具书和百度）</p></blockquote><p>sem_wait是阻塞接受，还有直接返回，和超时接受两个接口。常用的信号量是二进制信号量，即信号量是非一即零的标志。与之对应的还有计数信号量。信号量是何种类型是在信号量创建时确定的。</p><h2 id="posix消息队列"><a href="#posix消息队列" class="headerlink" title="posix消息队列"></a>posix消息队列</h2><p>和信号量一样，队列这里也只总结常用的posix消息队列，XSI消息队列不做总结。<br>消息队列可以说是线程间通信中，最常用到的通信方式之一了。<br>常用的接口<br>创建队列mq_open()<br>关闭队列mq_close()<br>删除队列mq_unlink()<br>发送消息mq_send()<br>接受消息mq_receive()</p><blockquote><p>（接口只做了简单的总结，具体的函数原型，可以借助工具书和百度）</p></blockquote><p>常用的消息队列使用模式是，多个C线程向同一个S线程发送消息。例如C1、C2作为单独处理线程，S作为网络通信线程，C1、C2可以都通过同样的消息队列，发送消息给S实现数据上行。</p><h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p> 管道分为无名管道和有名管道，无名管道可以用作主子进程之间的通信。有名管道也就是常说的FIFO，可作为任意进程间的通信。<br> （通俗理解，管道和文件读写一样，可以将管道看做一个文件，比较特殊的是他有读写描述符是不一样的）<br> 由于管道通信与文件读写基本一样，这里不做其他说明。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> 应用开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 进程通信 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux开机自启脚本</title>
+      <link href="2020/08/16/linux/%E5%86%85%E6%A0%B8/"/>
+      <url>2020/08/16/linux/%E5%86%85%E6%A0%B8/</url>
+      
+        <content type="html"><![CDATA[<p>系统初始化完成后会运行初始化脚本 rc.local，想要实现开机自动启动某个功能，可以在这个脚本增加些执行命令。</p><p>rc.local/rc.sysinit，一般为路径为/etc/rc.d/rc.local或/etc/rc.d/rc.sysinit</p><p>可以直接在脚本退出之前执行某个脚本或执行某个shell命令</p><a id="more"></a><h2 id="update-rc-d-自启"><a href="#update-rc-d-自启" class="headerlink" title="update-rc.d 自启"></a>update-rc.d 自启</h2><p>通过update-rc.d xxx defaults NN命令(NN为启动顺序) 命令将xxx脚本放到初始化执行的队列中去，以实现自启。NN代表的是初始化优先级，如果脚本需要用到网络等延迟服务，NN需设置一个比较大的数字，如90，保证脚本启动前所依赖服务已经启动。</p><p>与这个命令配合使用的是sudo update-rc.d xxx remove，是把xxx脚本或功能移除初始化队列</p><h2 id="开，关，重启功能的脚本实现"><a href="#开，关，重启功能的脚本实现" class="headerlink" title="开，关，重启功能的脚本实现"></a>开，关，重启功能的脚本实现</h2><p>开发的某个新程序xxx，如果实现 /etc/int.d/xxx start|stop|restart 脚本控制开关，会方便平时的管理和开机启动</p><p>这里对这个脚本常用实现方法简单总结下：</p><p><strong>1</strong> 将可执行程序xxx放到 /usr/local/bin目录（并修改执行权限）</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mv</span> xxx /usr/local/bin/xxx</span><br><span class="line">sudo chmod +x /usr/local/bin/xxx</span><br></pre></td></tr></table></figure><p><strong>2</strong> 在/etc/int.d/目录下编写xxx的控制脚本,复制如下脚本即可</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh -e</span></span><br><span class="line">NAME=xxx</span><br><span class="line">DAEMON=/usr/local/bin/<span class="variable">$NAME</span></span><br><span class="line">PIDFILE=/var/run/<span class="variable">$NAME</span>.pid</span><br><span class="line"></span><br><span class="line">[ -<span class="type">x</span> <span class="string">&quot;<span class="variable">$DAEMON</span>&quot;</span> ] || <span class="keyword">exit</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">case <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">  <span class="built_in">start</span>)</span><br><span class="line">      <span class="keyword">if</span> [ -<span class="type">f</span> <span class="variable">$PIDFILE</span> ]; then</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$NAME</span> already running...&quot;</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="literal">-e</span> <span class="string">&quot;\033[1;35mStart Fail\033[0m&quot;</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Starting <span class="variable">$NAME</span>...&quot;</span></span><br><span class="line">        <span class="built_in">start-stop</span><span class="literal">-daemon</span> <span class="literal">-S</span> <span class="literal">-p</span> <span class="variable">$PIDFILE</span> <span class="literal">-m</span> <span class="literal">-b</span> <span class="literal">-o</span> <span class="literal">-q</span> <span class="literal">-x</span> <span class="variable">$DAEMON</span> -- <span class="keyword">param</span> || <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="literal">-e</span> <span class="string">&quot;\033[1;32mStart Success\033[0m&quot;</span></span><br><span class="line">    fi</span><br><span class="line">    ;;</span><br><span class="line">  stop)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Stoping <span class="variable">$NAME</span>...&quot;</span></span><br><span class="line">        <span class="built_in">start-stop</span><span class="literal">-daemon</span> <span class="literal">-K</span> <span class="literal">-p</span> <span class="variable">$PIDFILE</span> <span class="literal">-s</span> TERM <span class="literal">-o</span> <span class="literal">-q</span> || <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        <span class="built_in">rm</span> <span class="literal">-rf</span> <span class="variable">$PIDFILE</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="literal">-e</span> <span class="string">&quot;\033[1;32mStop Success\033[0m&quot;</span></span><br><span class="line">    ;;</span><br><span class="line">  restart)</span><br><span class="line">    <span class="variable">$0</span> stop &amp;&amp; <span class="built_in">sleep</span> <span class="number">2</span> &amp;&amp; <span class="variable">$0</span> <span class="built_in">start</span></span><br><span class="line">    ;;</span><br><span class="line">  *)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Usage: <span class="variable">$0</span> &#123;start|stop|restart&#125;&quot;</span></span><br><span class="line">    <span class="keyword">exit</span> <span class="number">1</span></span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line"><span class="keyword">exit</span> <span class="number">0</span></span><br></pre></td></tr></table></figure><p>需要将NAME改变成程序的名称，param是程序执行需要的参数，没有参数可以删除调param</p><p>完成上面两步之后即可通过/etc/int.d/xxx start|stop|restart 命令控制功能开关。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> 内核应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 内核 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux开机自启脚本</title>
+      <link href="2020/08/16/Server/ajax/%E5%86%85%E6%A0%B8/"/>
+      <url>2020/08/16/Server/ajax/%E5%86%85%E6%A0%B8/</url>
+      
+        <content type="html"><![CDATA[<p>系统初始化完成后会运行初始化脚本 rc.local，想要实现开机自动启动某个功能，可以在这个脚本增加些执行命令。</p><p>rc.local/rc.sysinit，一般为路径为/etc/rc.d/rc.local或/etc/rc.d/rc.sysinit</p><p>可以直接在脚本退出之前执行某个脚本或执行某个shell命令</p><a id="more"></a><h2 id="update-rc-d-自启"><a href="#update-rc-d-自启" class="headerlink" title="update-rc.d 自启"></a>update-rc.d 自启</h2><p>通过update-rc.d xxx defaults NN命令(NN为启动顺序) 命令将xxx脚本放到初始化执行的队列中去，以实现自启。NN代表的是初始化优先级，如果脚本需要用到网络等延迟服务，NN需设置一个比较大的数字，如90，保证脚本启动前所依赖服务已经启动。</p><p>与这个命令配合使用的是sudo update-rc.d xxx remove，是把xxx脚本或功能移除初始化队列</p><h2 id="开，关，重启功能的脚本实现"><a href="#开，关，重启功能的脚本实现" class="headerlink" title="开，关，重启功能的脚本实现"></a>开，关，重启功能的脚本实现</h2><p>开发的某个新程序xxx，如果实现 /etc/int.d/xxx start|stop|restart 脚本控制开关，会方便平时的管理和开机启动</p><p>这里对这个脚本常用实现方法简单总结下：</p><p><strong>1</strong> 将可执行程序xxx放到 /usr/local/bin目录（并修改执行权限）</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mv</span> xxx /usr/local/bin/xxx</span><br><span class="line">sudo chmod +x /usr/local/bin/xxx</span><br></pre></td></tr></table></figure><p><strong>2</strong> 在/etc/int.d/目录下编写xxx的控制脚本,复制如下脚本即可</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh -e</span></span><br><span class="line">NAME=xxx</span><br><span class="line">DAEMON=/usr/local/bin/<span class="variable">$NAME</span></span><br><span class="line">PIDFILE=/var/run/<span class="variable">$NAME</span>.pid</span><br><span class="line"></span><br><span class="line">[ -<span class="type">x</span> <span class="string">&quot;<span class="variable">$DAEMON</span>&quot;</span> ] || <span class="keyword">exit</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">case <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">  <span class="built_in">start</span>)</span><br><span class="line">      <span class="keyword">if</span> [ -<span class="type">f</span> <span class="variable">$PIDFILE</span> ]; then</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$NAME</span> already running...&quot;</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="literal">-e</span> <span class="string">&quot;\033[1;35mStart Fail\033[0m&quot;</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Starting <span class="variable">$NAME</span>...&quot;</span></span><br><span class="line">        <span class="built_in">start-stop</span><span class="literal">-daemon</span> <span class="literal">-S</span> <span class="literal">-p</span> <span class="variable">$PIDFILE</span> <span class="literal">-m</span> <span class="literal">-b</span> <span class="literal">-o</span> <span class="literal">-q</span> <span class="literal">-x</span> <span class="variable">$DAEMON</span> -- <span class="keyword">param</span> || <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="literal">-e</span> <span class="string">&quot;\033[1;32mStart Success\033[0m&quot;</span></span><br><span class="line">    fi</span><br><span class="line">    ;;</span><br><span class="line">  stop)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Stoping <span class="variable">$NAME</span>...&quot;</span></span><br><span class="line">        <span class="built_in">start-stop</span><span class="literal">-daemon</span> <span class="literal">-K</span> <span class="literal">-p</span> <span class="variable">$PIDFILE</span> <span class="literal">-s</span> TERM <span class="literal">-o</span> <span class="literal">-q</span> || <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        <span class="built_in">rm</span> <span class="literal">-rf</span> <span class="variable">$PIDFILE</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="literal">-e</span> <span class="string">&quot;\033[1;32mStop Success\033[0m&quot;</span></span><br><span class="line">    ;;</span><br><span class="line">  restart)</span><br><span class="line">    <span class="variable">$0</span> stop &amp;&amp; <span class="built_in">sleep</span> <span class="number">2</span> &amp;&amp; <span class="variable">$0</span> <span class="built_in">start</span></span><br><span class="line">    ;;</span><br><span class="line">  *)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Usage: <span class="variable">$0</span> &#123;start|stop|restart&#125;&quot;</span></span><br><span class="line">    <span class="keyword">exit</span> <span class="number">1</span></span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line"><span class="keyword">exit</span> <span class="number">0</span></span><br></pre></td></tr></table></figure><p>需要将NAME改变成程序的名称，param是程序执行需要的参数，没有参数可以删除调param</p><p>完成上面两步之后即可通过/etc/int.d/xxx start|stop|restart 命令控制功能开关。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> 内核应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 内核 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一种基于ajax的动态网页框架设计方法</title>
+      <link href="2020/08/16/Server/ajax/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Eajax%E7%9A%84%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/"/>
+      <url>2020/08/16/Server/ajax/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Eajax%E7%9A%84%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>ajax由于其可以做到不用重新加载整个页面而获取后台数据刷新局部网页，而广泛为web开发中应用。<br>后台管理系统一般都是左侧或上方存在导航栏，固定不变，其余部分作为真正的数据部分。</p><a id="more"></a><p><img src="https://img-blog.csdnimg.cn/20201129215502806.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20201129215502806.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666" alt="在这里插入图片描述"><br>如上图，功能是点击导航栏中的1或2标签可以实现内容DIV的对应功能显示。传统的设备方案是使用iframe标签将整个页面分成两个部分，做到互不影响。但是又因为两个页面的独立性不能做到整体页面显示的统一控制。这时候想到使用ajax做刷新内容解决问题。<br>1、将各个功能内容页面的HTML独立加到对应的HTML文件中，例如导航1-&gt;1.html；<br>2、为导航1添加onchange js事件changefun;<br>3、changefun接口内部做ajax请求，请求1.html的所有内容。后端需实现1.html全部文件的html组装返回。ajax回调接口将内容div的内容清空，然后将1.html内容全部回填到内容div；<br>4、如果内容div的内容都是静态数据，那么上一步做完，即可完成功能。如果内容div需要动态从数据库获取数据，还需做下一步；<br>5、新建js refreshfun接口，以ajax形式获取动态内容html。同样后端需实现对应动态内容的数据库访问和html组装。changefun回调接口，在回填内容div之后调用刷新数据接口refreshfun,刷新内容div中的动态数据。<br>6、首页的内容div如果也是动态的同样可以通过ajax形式获取。通过js 的页面加载初始化接口调用ajax方案可实现加载页面时直接加载出首页全部内容。</p><p>以上可以作为一种新的后台框架设计方案。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 服务器 </category>
+          
+          <category> ajax </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ajax </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>代码规范——全局变量使用规范</title>
+      <link href="2020/08/09/coding/coding1/"/>
+      <url>2020/08/09/coding/coding1/</url>
+      
+        <content type="html"><![CDATA[<p>最近参与的项目有大量的开发量，功能调试过程中发现自己在使用全局变量时引入了严重的问题，导致程序崩溃。回想下自己开发时使用全局变量，十有八九都会引起各种问题。所以想着专门记录下全局变量的使用规范和注意事项，防止以后还会出现同样的问题。</p><a id="more"></a><h2 id="一、声明和初始化"><a href="#一、声明和初始化" class="headerlink" title="一、声明和初始化"></a>一、声明和初始化</h2><p>声明时最好是在开发设计到的模块文件进行声明，<strong>对每个变量定义资源锁</strong>，使用时必须获取线程锁资源。</p><p>在模块内部<strong>封装初始化、获取、配置（init, get, set）</strong>三个接口，<strong>如全局变量是数组要对数组的索引进行有效性验证</strong>。全局变量定义最好是使用static静态声明，如果其他模块使用的话，三个接口可以对外提供，这样保证三个接口的正确使用，就可以保证全局变量的使用规范。</p><h2 id="二、内存使用"><a href="#二、内存使用" class="headerlink" title="二、内存使用"></a>二、内存使用</h2><p>如果全局变量<strong>数据量小，可直接使用栈内存</strong>，在声明时直接初始化使用。</p><p>如果全局变量是<strong>数据量比较大的数组或结构体，建议使用堆内存</strong>，也就是动态申请的内存。例如：声明定义一个指针，然后在init接口malloc对应数据量的内存。</p><p>总之，数据量大的最好动态申请内存，有两个优点：</p><p>一是全局全量是长期占用不释放的一块内存，如果线程本身的占内存空降并不是恨大，大量的占用大量占内存，可能会导致某些压力情况下，导致线程崩溃。</p><p>二是考虑到内存越界情况出现时的排查，若是使用的栈内存，可能只会导致某个线程启动时存在线程内部的内存越界，从而导致某个功能异常或不能用。但是如果使用的是堆内存，由于堆内存是进程共享使用，错误的使用会直接导致进程崩溃，这样能尽快复现问题和排查问题。</p><p>总结：</p><p>1.全局变量使用要加锁</p><p>2.对外提供三接口，接口内部做有效性判断</p><p>3.数据量大的使用动态内存</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编码 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 全局变量 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>搭建自己的嵌入式博客服务器（五）Mysql+PHP实现动态博客网站</title>
+      <link href="2020/06/21/embedded/blogServer/blogServer5/"/>
+      <url>2020/06/21/embedded/blogServer/blogServer5/</url>
+      
+        <content type="html"><![CDATA[<p>按照前面的博客搭建步骤，可以在本地搭建一个看起来还不错的个人博客，但是总感觉有些不足。一个是网页都只是“静态的”，也就是说博客里的每一个网页都是事先在本地早就生生成好的，按照hexo的机制，每次更新一个博客都要至少新增两个文件.md文件和一个新的index.html文件，虽然两个文件本身不是很大，但总是感觉有些不友好；另外一个也是最让我难受的就是跟新博文的方式，只能通过markdown的方式新增文件，然后重新生成整个hexo工程，过程很是繁琐。为了解决这两个问题，我决定对博客进行大换血，使用数据库方式存储博文，PHP作为博客的后台处理程序，实现博客的展示，同样实现一个简单的后台管理页面方便我可以随时随地的管理博客内容。</p><a id="more"></a><h2 id="一、mysql数据库的选用"><a href="#一、mysql数据库的选用" class="headerlink" title="一、mysql数据库的选用"></a>一、mysql数据库的选用</h2><p>我用过的数据库也就是sql server和mysql了，sql server是window环境下大家常用的数据库，因为有专门的图形化数据库管理工具，所以用起来也是比较简单，功能也比较强大。对比mysql来说，mysql没有官方的数据库管理工具，但是却有小巧灵活的特点，我的本地环境使用linux环境，所以也是选用了mysql作为数据库，为了方便简单的操作，我在window安装了Navicat Premium，可以通过IP的形式远程和图形化管理liunx下面的数据库。<br>mysql的安装方式，这里就不再详细总结了，CSDN上搜一下，有详细的步骤和配置说明。</p><h2 id="二、PHP的简单入门学习"><a href="#二、PHP的简单入门学习" class="headerlink" title="二、PHP的简单入门学习"></a>二、PHP的简单入门学习</h2><p>之前在学校的的时候学习过javeEE，jsp之类的一些东西，所以说到搭建动态网页的时候首先想到的是用java搭建，不过当时只是在windows下面搭建的编程和运行环境，如何在linux下面的搭建呢？确实是个问题，在网上找了许久，找到的方法是先在win下面将调试好的程序导出包，把包放到linux对应的java目录下，感觉应该会有更好的方案，不过感觉应该会比较麻烦，最终放弃了使用java的方案。听过PHP是最好的语言，但是一直没有接触过，所以想试下用PHP代替java,网上搜索了下，都说是CI框架比较简单，适合初学者。最终也是使用了PHP的CI框架实现。下面简单记录下CI的几个点：</p><ol><li>config目录<br>config目录文件是项目的CI配置文件，config/datebase.php可配置项目连接的数据库，ip、用户名、密码等；</li><li>model目录<br>model目录是数据库处理文件，使用model类与数据库的数据表对应，新建一个表就在model下面新建一个对应的model类，并在对应的类实现底层的数据库操作函数；</li><li>view目录<br>view目录是前端网页；</li><li>controllers目录<br>controllers目录是项目的业务处理层，相当于java的serverlet；新增一个页面，都要在controllers目录新增一个对应的业务处理类，因为CI框架的机制是不允许直接访问view目录的网页，访问资源都要先访问controllers目录的资源，由controllers的类加载页面。当然controllers也要处理前端通过post或get方式提交的数据。</li><li>libraries目录<br>libraries目录是库文件目录，有框架的库定义的类，如果想自定义一个类也要放到这个目录下新增；</li><li>CI框架的绝对目录重定向<br>由于config.php的默认设置，用户访问时会自定定向到ip/index.php同样浏览器请求资源时的URL也会自动加上inde.php/ 的前缀，这个配置给开发时设置资源访问和链接提交路径时带来了很大的不便，可以通过改变config.php的下面两行<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$config</span>[<span class="string">&#x27;base_url&#x27;</span>] = <span class="string">&#x27;locahost&#x27;</span>;</span><br><span class="line"><span class="variable">$config</span>[<span class="string">&#x27;index_page&#x27;</span>] = <span class="string">&#x27;&#x27;</span>;</span><br></pre></td></tr></table></figure>在CI的根目录下，即在index.php，system的同级目录下，建立.htaccess填充代码如下<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine on</span><br><span class="line">RewriteCond $<span class="number">1</span> !^(index\.php|css|js|img|fonts|editormd|robots\.txt)</span><br><span class="line">RewriteRule ^(.*)$ /index.php/$<span class="number">1</span> [L]</span><br></pre></td></tr></table></figure>之后在每个view下的文件添加<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;base href = <span class="string">&quot;&lt;?php echo site_url();?&gt;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>对应的页面就能通过“/”访问到项目路径下的资源了。这样设置之后不仅可以解决上面的问题，而且RewriteCond设置的对应的目录下的资源也可以直接通过URL访问到。<h2 id="三、从hexo到动态网站"><a href="#三、从hexo到动态网站" class="headerlink" title="三、从hexo到动态网站"></a>三、从hexo到动态网站</h2>这部分其实就是将原来hexo生成的静态HTML文件，填充php代码和删除冗余的html内容。对于不熟悉前端的新手来说可能有一定的难度。<br>拿主页为例，主要替换的就是原来的博文部分，博文部分的HTML结构都是一样的，不过是每个博文的标题内容是不同的。通过PHP循环业务层传过来的数组，完成对每个博文的内容赋值即可。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">foreach ($pages as $page)</span><br><span class="line">&#123;</span><br><span class="line">?&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;font-size: 14px;&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    &lt;?php echo $page-&gt;content;?&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    &lt;/p&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;?php</span></span></span><br><span class="line"><span class="tag"><span class="string">&#125;</span></span></span><br><span class="line"><span class="tag"><span class="string">?&gt;</span></span></span><br></pre></td></tr></table></figure>HTML文本其实比较简单，不过讲解起来也不是一两句话能说清楚的，这里就不详细讲解了，建议有需要的同学还是简单学习下相关的知识，毕竟熟悉之后就可以随意的改动你所看到的页面了。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+          <category> 博客服务 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 嵌入式 </tag>
+            
+            <tag> 博客服务 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>菜鸟入门github上传本地项目</title>
       <link href="2020/02/08/github/githubCommit/"/>
       <url>2020/02/08/github/githubCommit/</url>
