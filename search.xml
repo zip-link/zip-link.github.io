@@ -248,8 +248,8 @@
     
     <entry>
       <title>一种基于ajax的动态网页框架设计方法</title>
-      <link href="2020/08/16/Server/ajax/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Eajax%E7%9A%84%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/"/>
-      <url>2020/08/16/Server/ajax/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Eajax%E7%9A%84%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/</url>
+      <link href="2020/08/16/Server/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Eajax%E7%9A%84%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/"/>
+      <url>2020/08/16/Server/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Eajax%E7%9A%84%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/</url>
       
         <content type="html"><![CDATA[<p>ajax由于其可以做到不用重新加载整个页面而获取后台数据刷新局部网页，而广泛为web开发中应用。<br>后台管理系统一般都是左侧或上方存在导航栏，固定不变，其余部分作为真正的数据部分。</p><a id="more"></a><p><img src="https://img-blog.csdnimg.cn/20201129215502806.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20201129215502806.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,666" alt="在这里插入图片描述"><br>如上图，功能是点击导航栏中的1或2标签可以实现内容DIV的对应功能显示。传统的设备方案是使用iframe标签将整个页面分成两个部分，做到互不影响。但是又因为两个页面的独立性不能做到整体页面显示的统一控制。这时候想到使用ajax做刷新内容解决问题。<br>1、将各个功能内容页面的HTML独立加到对应的HTML文件中，例如导航1-&gt;1.html；<br>2、为导航1添加onchange js事件changefun;<br>3、changefun接口内部做ajax请求，请求1.html的所有内容。后端需实现1.html全部文件的html组装返回。ajax回调接口将内容div的内容清空，然后将1.html内容全部回填到内容div；<br>4、如果内容div的内容都是静态数据，那么上一步做完，即可完成功能。如果内容div需要动态从数据库获取数据，还需做下一步；<br>5、新建js refreshfun接口，以ajax形式获取动态内容html。同样后端需实现对应动态内容的数据库访问和html组装。changefun回调接口，在回填内容div之后调用刷新数据接口refreshfun,刷新内容div中的动态数据。<br>6、首页的内容div如果也是动态的同样可以通过ajax形式获取。通过js 的页面加载初始化接口调用ajax方案可实现加载页面时直接加载出首页全部内容。</p><p>以上可以作为一种新的后台框架设计方案。</p>]]></content>
       
@@ -391,8 +391,8 @@
     
     <entry>
       <title>手机语音助手控制自己开发的物联网设备方法</title>
-      <link href="2020/02/06/embedded/VoiceAssistant/VoiceAssistant/"/>
-      <url>2020/02/06/embedded/VoiceAssistant/VoiceAssistant/</url>
+      <link href="2020/02/06/embedded/VoiceAssistant/"/>
+      <url>2020/02/06/embedded/VoiceAssistant/</url>
       
         <content type="html"><![CDATA[<p>市面上可以买到的物联网设备多种多样，而现有的提供商小米，百度，天猫等基本都是各玩各的，没有同意的设备接入控制的标准协议。所以开发者如果自行开发了一款设备没有同意的标准协议可以遵循，除非是调用厂商提供提供的SDK（实际还是按照他们的自定义协议实现）。那么如何简单实现将用siri或者小爱同学等语音助手控制自己的设备呢？下面总结下目前我了解的方法。</p><a id="more"></a><p>首先分两种情况一个是Siri，另外是小爱，小度等国内几个大厂商。</p><h2 id="一，Siri"><a href="#一，Siri" class="headerlink" title="一，Siri"></a>一，Siri</h2><p>苹果系统完全可以借助一款APP“捷径”，这个APP是可以自定义语音指令，然后执行特定的脚本的，这就非常方便了。</p><ol><li>比如用的比较多的物联网终端控制器ESP8266，源代码提供通过访问ESP8266的IP加引脚号控制引脚高低电平的方法。例如新建捷径指令“打开灯”，捷径指令执行访问你的ESP8266的ip加引脚号的URL就可以实现控制某个引脚的高低电平，相当于可以控制某个开关信号了，具体收到这个开关信号之后的实现逻辑你就可以自定义实现了。</li><li>另外的场景（控制板非ESP8266），这个也是比较常用的到的场景。目前我的解决办法是在自己家搭建一个运行Linux的服务端，开机ssh服务，然后通过捷径，运行脚本登录SSH的方式，直接控制你的Linux服务端执行某个特定的脚本，脚本的内容就可以是具体的控制你的某个设备了。<br><img src="https://img-blog.csdnimg.cn/20200206111754460.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_8,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200206111754460.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjgxNjAx,size_8,color_FFFFFF,t_70" srcset="data:image/png;base64,666" alt="图片链接"><br>另外的话第二种方法相比第一种还有一个好处就是，你可以为你的服务端绑定域名,这样的话就可以实现远程ssh,这样不必在同一网络内，在任何地方你都可以通过siri控制你的设备了。</li></ol><h2 id="二，小爱小度等"><a href="#二，小爱小度等" class="headerlink" title="二，小爱小度等"></a>二，小爱小度等</h2><p>除了Siri之外，现在用的比较多的就是小爱同学了，想想你自己可以直接通过家里的小爱音箱控制自己开发的设备是不是也不错，这里可以关注下“点灯科技”。简单介绍下这个平台集成了目前使用广泛的语音平台，提供不同厂家的协议SDK，跳过了直接使用原厂商SDK的种种限制，比如接入小爱同学需要你有自己的服务器外，还需要有自己的APP，账号体系等等。</p><p>只需要将对应平台的SDK下载到自己的设备，设备本身实现对应的回调函数即可实现语音控制功能，不过从官网看目前该平台提供的免费版仅仅支持控制灯，传感器和插座开关，具体的实现方案点灯的官网也给出了较为详细的步骤。</p>]]></content>
       
